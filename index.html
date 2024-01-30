@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>eToro : Le retour du come-back de la vengence II (director's cut) (Version Longue)</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet" />
+  <link href="../css/styles.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -32,6 +32,7 @@
           <div class="card-body">
             <h5 class="card-title">Scanner</h5>
             <button id="startButton" type="button" class="btn btn-success">Start</button>
+            <button id="stopButton" type="button" class="btn btn-danger">Stop</button>
             <div class="mt-3">
               <h5 class="card-title">Stats</h5>
               <p class="btn btn-primary">Account Found: <span id="accountFound">123456</span></p>
@@ -72,13 +73,27 @@
   <script type="module">
     import { generateRandomBytes, generateMnemonic, generateAddress } from "./ether.js";
 
+    let stopFlag = false;
+    let intervalId;
+
     document.getElementById("startButton").addEventListener("click", function() {
-        let randomBytes = generateRandomBytes(16, 32);
-        console.log(randomBytes);
-        let wordlist = generateMnemonic(randomBytes);
-        console.log(wordlist);
-        let address = generateAddress(wordlist);
-        console.log(address);
+        stopFlag = false;
+        intervalId = setInterval(function() {
+            if (!stopFlag) {
+                let randomBytes = generateRandomBytes(16, 32);
+                console.log(randomBytes);
+                let wordlist = generateMnemonic(randomBytes);
+                console.log(wordlist);
+                let address = generateAddress(wordlist);
+                console.log(address);
+            } else {
+                clearInterval(intervalId);
+            }
+        }, 500); // Interval set to 500 milliseconds
+    });
+
+    document.getElementById("stopButton").addEventListener("click", function() {
+        stopFlag = true;
     });
 
   </script>
