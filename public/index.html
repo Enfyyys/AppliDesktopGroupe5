@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scanner App</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    .card {
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Internet Status</h5>
+            <p class="card-text">Internet is connected</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Scanner</h5>
+            <button type="button" class="btn btn-success">Start</button>
+            <div class="mt-3">
+              <p class="btn btn-primary">Account Found: <span id="accountFound">123456</span></p>
+              <p class="btn btn-danger">Account without Transaction: <span id="accountWithoutTransaction">789012</span></p>
+              <p class="btn btn-success">With Transaction: <span id="withTransaction">345678</span></p>
+            </div>
+            <table class="table mt-3">
+              <thead>
+                <tr>
+                  <th scope="col">Password</th>
+                  <th scope="col">Wallet</th>
+                  <th scope="col">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>John Doe</td>
+                  <td>$100</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jane Smith</td>
+                  <td>$200</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
