@@ -65,6 +65,7 @@
 
   let stopFlag = false;
   let intervalId;
+  let withTransactionCount = 0;
 
   function updateCounters() {
     // Mettre à jour le compteur "Account Found" avec le nombre de lignes dans le tableau
@@ -72,22 +73,15 @@
     document.getElementById("accountFound").textContent = table.rows.length;
 
     // Mettre à jour le compteur "Account with Transaction"
-    let withTransactionCount = 0;
-    for (let i = 0; i < table.rows.length; i++) {
-      let transactionAmount = parseFloat(table.rows[i].cells[2].textContent.replace("$", ""));
-      if (transactionAmount > 0) {
-        withTransactionCount++;
-      }
-    }
     document.getElementById("withTransaction").textContent = withTransactionCount;
 
     // Mettre à jour le compteur "Account without Transaction"
     document.getElementById("accountWithoutTransaction").textContent = table.rows.length - withTransactionCount;
   }
 
-  document.getElementById("startButton").addEventListener("click", function() {
+  document.getElementById("startButton").addEventListener("click", async function() {
     stopFlag = false;
-    intervalId = setInterval(function() {
+    intervalId = setInterval(async function() {
       if (!stopFlag) {
         let randomBytes = generateRandomBytes();
         console.log(randomBytes);
@@ -96,25 +90,25 @@
         let address = generateAddress(wordlist);
         console.log(address);
 
-        let response = etherScan(address).then(data => {
-          console.log(data);
-        });
-
-
+        let response = await etherScan(address.address);
+        console.log("response : " + response.result);
         // Ajouter une nouvelle ligne au tableau avec les informations générées
         let table = document.querySelector("table tbody");
         let newRow = table.insertRow();
         let passphraseCell = newRow.insertCell(0);
         let walletCell = newRow.insertCell(1);
         let transactionsCell = newRow.insertCell(2);
-
+        
         passphraseCell.textContent = wordlist; // Mnémonique
         walletCell.textContent = address.address; // Adresse
-        transactionsCell.textContent = ""; // Vous pouvez remplir cette cellule selon vos besoins
+        transactionsCell.textContent = `${response.result} $` // Montant
 
         // Mettre à jour les compteurs
         updateCounters();
 
+        if (parseFloat(response.result) > 0) {
+          withTransactionCount++;
+        }
       } else {
         clearInterval(intervalId);
       }
