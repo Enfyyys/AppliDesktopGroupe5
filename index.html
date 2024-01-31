@@ -117,7 +117,14 @@
           let transacDiv = document.createElement('div');
           transacDiv.classList.add('cell');
           transacDiv.classList.add('transactionCell');
-          transacDiv.innerText = data.result.length;
+          if (data.result != "Max rate limit reached")
+          {
+            transacDiv.innerText = data.result.length;
+          }
+          else
+          {
+            transacDiv.innerText = "0"
+          }
           newLineDiv.appendChild(transacDiv);
 
           table.appendChild(newLineDiv);
