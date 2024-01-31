@@ -34,7 +34,7 @@ export async function etherScan(address) {
         headers: {
             "Content-Type": "application/json"
         }, redirect: "follow",
-        body: JSON.stringify(data)
+        body: encodedParameters
     });
 
     return response.json();
