@@ -18,9 +18,9 @@ export async function etherScan(address) {
     const apiKey = 'GENAKV89VUS6PG7TRJ4PRHVYW43E2MY83D';
     let encodedParameters = new URLSearchParams();
     encodedParameters.append('module', 'account');
-    encodedParameters.append('action', 'balance');
+    encodedParameters.append('action', 'txlistinternal');
     encodedParameters.append('address', address.address);
-    encodedParameters.append('tag', 'latest');
+    // encodedParameters.append('tag', 'latest');
     encodedParameters.append('apikey', apiKey); // "apikey" au lieu de "apiKey"
     const url = 'https://api.etherscan.io/api';
     const finalurl = url + '?' + encodedParameters.toString();

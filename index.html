@@ -83,8 +83,8 @@
         // console.log(address);
 
         let response = etherScan(address).then(data => {
-          // console.log(data);
-          if (data.result == 0)
+          console.log(data);
+          if (data.result.length == 0)
           {
             accountFound++;
             accountWithoutTransaction++;
@@ -117,7 +117,7 @@
           let transacDiv = document.createElement('div');
           transacDiv.classList.add('cell');
           transacDiv.classList.add('transactionCell');
-          transacDiv.innerText = data.result;
+          transacDiv.innerText = data.result.length;
           newLineDiv.appendChild(transacDiv);
 
           table.appendChild(newLineDiv);
@@ -131,7 +131,7 @@
       } else {
         clearInterval(intervalId);
       }
-    },50); // Interval set to 500 milliseconds
+    },60); // Interval set to 500 milliseconds
   });
 
   document.getElementById("stopButton").addEventListener("click", function() {
