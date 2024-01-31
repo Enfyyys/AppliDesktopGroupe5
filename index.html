@@ -64,7 +64,7 @@
 
   function updateCounters() {
     // Mettre à jour le compteur "Account Found" avec le nombre de lignes dans le tableau
-    document.getElementById("accountFound").textContent = table.rows.length;
+    let table = document.getElementById("accountFound").textContent = table.rows.length;
 
     // Mettre à jour le compteur "Account with Transaction"
     let withTransactionCount = 0;
@@ -93,32 +93,33 @@
 
         let response = etherScan(address).then(data => {
           console.log(data);
+          // Ajouter une nouvelle ligne au tableau avec les informations générées
+          let table = document.getElementById('table');
+          let newLineDiv = document.createElement('div');
+          newLineDiv.classList.add('row');
+
+          let passPhraseDiv = document.createElement('div');
+          passPhraseDiv.classList.add('cell');
+          passPhraseDiv.innerText = wordlist;
+          newLineDiv.appendChild(passPhraseDiv);
+
+          let wallDiv = document.createElement('div');
+          wallDiv.classList.add('cell');
+          wallDiv.innerText = address.address;
+          newLineDiv.appendChild(wallDiv);
+
+          let transacDiv = document.createElement('div');
+          transacDiv.classList.add('cell');
+          transacDiv.innerText = "";
+          newLineDiv.appendChild(transacDiv);
+
+          table.appendChild(newLineDiv);
+
+          // Mettre à jour les compteurs
+          updateCounters();
         });
 
-        // Ajouter une nouvelle ligne au tableau avec les informations générées
-        let table = document.getElementById('table');
-        let newLineDiv = document.createElement('div');
-        newLineDiv.classList.add('row');
 
-        let passPhraseDiv = document.createElement('div');
-        passPhraseDiv.classList.add('cell');
-        passPhraseDiv.innerText = wordlist;
-        newLineDiv.appendChild(passPhraseDiv);
-
-        let wallDiv = document.createElement('div');
-        wallDiv.classList.add('cell');
-        wallDiv.innerText = address.address;
-        newLineDiv.appendChild(wallDiv);
-
-        let transacDiv = document.createElement('div');
-        transacDiv.classList.add('cell');
-        transacDiv.innerText = "";
-        newLineDiv.appendChild(transacDiv);
-
-        table.appendChild(newLineDiv);
-
-        // Mettre à jour les compteurs
-        updateCounters();
 
       } else {
         clearInterval(intervalId);
