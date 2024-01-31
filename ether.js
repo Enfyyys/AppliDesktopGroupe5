@@ -24,7 +24,7 @@ export async function etherScan(address) {
     encodedParameters.append('apikey', apiKey); // "apikey" au lieu de "apiKey"
     const url = 'https://api.etherscan.io/api';
     const finalurl = url + '?' + encodedParameters.toString();
-console.log(finalurl);
+    // console.log(finalurl);
     try {
         const response = await fetch(finalurl);
         if (!response.ok) {

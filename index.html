@@ -43,7 +43,7 @@
             <div class="row">
               <div class="cell">Pass Phrase</div>
               <div class="cell">Wallet</div>
-              <div class="cell">Transactions</div>
+              <div class="cell transactionCell">Transactions</div>
             </div>
           </div>
         </div>
@@ -76,15 +76,20 @@
     intervalId = setInterval(function() {
       if (!stopFlag) {
         let randomBytes = generateRandomBytes();
-        console.log(randomBytes);
+        // console.log(randomBytes);
         let wordlist = generateMnemonic(randomBytes);
-        console.log(wordlist);
+        // console.log(wordlist);
         let address = generateAddress(wordlist);
-        console.log(address);
+        // console.log(address);
 
         let response = etherScan(address).then(data => {
-          console.log(data);
+          // console.log(data);
           if (data.result == 0)
+          {
+            accountFound++;
+            accountWithoutTransaction++;
+          }
+          else if (data.result == "Max rate limit reached")
           {
             accountFound++;
             accountWithoutTransaction++;
@@ -111,6 +116,7 @@
 
           let transacDiv = document.createElement('div');
           transacDiv.classList.add('cell');
+          transacDiv.classList.add('transactionCell');
           transacDiv.innerText = data.result;
           newLineDiv.appendChild(transacDiv);
 
@@ -125,7 +131,7 @@
       } else {
         clearInterval(intervalId);
       }
-    }, 500); // Interval set to 500 milliseconds
+    },50); // Interval set to 500 milliseconds
   });
 
   document.getElementById("stopButton").addEventListener("click", function() {
