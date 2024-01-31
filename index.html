@@ -96,8 +96,10 @@
         let address = generateAddress(wordlist);
         console.log(address);
 
-        let response = etherScan(address);
-        console.log(response);
+        let response = etherScan(address).then(data => {
+          console.log(data);
+        });
+
 
         // Ajouter une nouvelle ligne au tableau avec les informations générées
         let table = document.querySelector("table tbody");
