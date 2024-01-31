@@ -61,23 +61,14 @@
 
   let stopFlag = false;
   let intervalId;
+  let accountFound = 0;
+  let accountWithTransaction = 0;
+  let accountWithoutTransaction = 0;
 
-  function updateCounters() {
-    // Mettre à jour le compteur "Account Found" avec le nombre de lignes dans le tableau
-    let table = document.getElementById("accountFound").textContent = table.rows.length;
-
-    // Mettre à jour le compteur "Account with Transaction"
-    let withTransactionCount = 0;
-    for (let i = 0; i < table.rows.length; i++) {
-      let transactionAmount = parseFloat(table.rows[i].cells[2].textContent.replace("$", ""));
-      if (transactionAmount > 0) {
-        withTransactionCount++;
-      }
-    }
-    document.getElementById("withTransaction").textContent = withTransactionCount;
-
-    // Mettre à jour le compteur "Account without Transaction"
-    document.getElementById("accountWithoutTransaction").textContent = table.rows.length - withTransactionCount;
+  function updateCounters(account, transactionFound) {
+    document.getElementById('accountFound').textContent = accountFound;
+    document.getElementById('accountWithTransaction').textContent = accountWithTransaction;
+    document.getElementById('accountWithoutTransaction').textContent = accountWithoutTransaction;
   }
 
   document.getElementById("startButton").addEventListener("click", function() {
@@ -93,6 +84,16 @@
 
         let response = etherScan(address).then(data => {
           console.log(data);
+          if (data.result == 0)
+          {
+            accountFound++;
+            accountWithoutTransaction++;
+          }
+          else
+          {
+            accountFound++;
+            accountWithTransaction++;
+          }
           // Ajouter une nouvelle ligne au tableau avec les informations générées
           let table = document.getElementById('table');
           let newLineDiv = document.createElement('div');
@@ -110,7 +111,7 @@
 
           let transacDiv = document.createElement('div');
           transacDiv.classList.add('cell');
-          transacDiv.innerText = "";
+          transacDiv.innerText = data.status;
           newLineDiv.appendChild(transacDiv);
 
           table.appendChild(newLineDiv);
