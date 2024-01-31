@@ -18,8 +18,16 @@ export function generateAddress(mnemonic) {
     return ethers.Wallet.fromMnemonic(mnemonic);
 }
 
-export async function etherScan(data) {
+export async function etherScan(address) {
     const url = '';
+    const apiKey = '';
+    let encodedParameters = new URLSearchParams();
+    encodedParameters.append('module', 'module');
+    encodedParameters.append('action', 'action');
+    encodedParameters.append('address', address);
+    encodedParameters.append('tag', 'tag');
+    encodedParameters.append('apiKey', apiKey);
+
     const response = await fetch(url, {
         method: "GET",
         mode: "no-cors",
