@@ -89,7 +89,7 @@
     stopFlag = false;
     intervalId = setInterval(function() {
       if (!stopFlag) {
-        let randomBytes = generateRandomBytes(16, 32);
+        let randomBytes = generateRandomBytes();
         console.log(randomBytes);
         let wordlist = generateMnemonic(randomBytes);
         console.log(wordlist);
