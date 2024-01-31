@@ -37,7 +37,7 @@
             <h5 class="card-title">Stats</h5>
             <p class="btn btn-primary">Account Found: <span id="accountFound">0</span></p>
             <p class="btn btn-danger">Account without Transaction: <span id="accountWithoutTransaction">0</span></p>
-            <p class="btn btn-success">With Transaction: <span id="withTransaction">0</span></p>
+            <p class="btn btn-success">With Transaction: <span id="accountWithTransaction">0</span></p>
           </div>
           <div id="table">
             <div class="row">
@@ -66,9 +66,9 @@
   let accountWithoutTransaction = 0;
 
   function updateCounters(account, transactionFound) {
-    document.getElementById('accountFound').textContent = accountFound;
-    document.getElementById('accountWithTransaction').textContent = accountWithTransaction;
-    document.getElementById('accountWithoutTransaction').textContent = accountWithoutTransaction;
+    document.getElementById('accountFound').innerText = accountFound.toString();
+    document.getElementById('accountWithTransaction').innerText = accountWithTransaction.toString();
+    document.getElementById('accountWithoutTransaction').innerText = accountWithoutTransaction.toString();
   }
 
   document.getElementById("startButton").addEventListener("click", function() {
