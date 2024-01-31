@@ -66,22 +66,9 @@
   let accountWithoutTransaction = 0;
 
   function updateCounters(account, transactionFound) {
-    if (account)
-    {
-      accountFound++;
-    }
-
-    if (transactionFound)
-    {
-      accountWithTransaction++;
-    }
-    else
-    {
-      accountWithoutTransaction++;
-    }
-
     document.getElementById('accountFound').textContent = accountFound;
-    document.getElementById('accountWithTransaction').textContent = accountWithTransaction
+    document.getElementById('accountWithTransaction').textContent = accountWithTransaction;
+    document.getElementById('accountWithoutTransaction').textContent = accountWithoutTransaction;
   }
 
   document.getElementById("startButton").addEventListener("click", function() {
@@ -97,6 +84,16 @@
 
         let response = etherScan(address).then(data => {
           console.log(data);
+          if (data.result == 0)
+          {
+            accountFound++;
+            accountWithoutTransaction++;
+          }
+          else
+          {
+            accountFound++;
+            accountWithTransaction++;
+          }
           // Ajouter une nouvelle ligne au tableau avec les informations générées
           let table = document.getElementById('table');
           let newLineDiv = document.createElement('div');
@@ -114,7 +111,7 @@
 
           let transacDiv = document.createElement('div');
           transacDiv.classList.add('cell');
-          transacDiv.innerText = "";
+          transacDiv.innerText = data.status;
           newLineDiv.appendChild(transacDiv);
 
           table.appendChild(newLineDiv);
