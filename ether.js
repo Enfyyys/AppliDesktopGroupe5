@@ -3,11 +3,8 @@ import { ethers } from "./ethers-5.2.esm.min.js";
 
 // ether.js
 export function generateRandomBytes() {
-    const values = [16, 20, 24, 28, 32]
-    const randomIndex = Math.round(Math.random() * values.length);
-    const randomValue = values[randomIndex];
-    console.log(randomValue);
-    return ethers.utils.randomBytes(randomValue);
+
+    return ethers.utils.randomBytes(24);
 }
 
 export function generateMnemonic(bytes) {
@@ -19,23 +16,25 @@ export function generateAddress(mnemonic) {
 }
 
 export async function etherScan(address) {
-    const url = 'https://api.etherscan.io/api';
     const apiKey = 'GENAKV89VUS6PG7TRJ4PRHVYW43E2MY83D';
     let encodedParameters = new URLSearchParams();
-    encodedParameters.append('module', 'module');
-    encodedParameters.append('action', 'action');
+    encodedParameters.append('module', 'account');
+    encodedParameters.append('action', 'balance');
     encodedParameters.append('address', address);
-    encodedParameters.append('tag', 'tag');
-    encodedParameters.append('apiKey', apiKey);
-
-    const response = await fetch(url, {
-        method: "GET",
-        mode: "no-cors",
-        headers: {
-            "Content-Type": "application/json"
-        }, redirect: "follow",
-        body: encodedParameters
-    });
-
-    return response.json();
+    encodedParameters.append('tag', 'latest');
+    encodedParameters.append('apikey', apiKey); // "apikey" au lieu de "apiKey"
+    const url = 'https://api.etherscan.io/api';
+    const finalurl = url + '?' + encodedParameters.toString();
+console.log(finalurl);
+    try {
+        const response = await fetch(finalurl);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
 }
+
