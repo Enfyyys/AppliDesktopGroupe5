@@ -61,23 +61,27 @@
 
   let stopFlag = false;
   let intervalId;
+  let accountFound = 0;
+  let accountWithTransaction = 0;
+  let accountWithoutTransaction = 0;
 
-  function updateCounters() {
-    // Mettre à jour le compteur "Account Found" avec le nombre de lignes dans le tableau
-    let table = document.getElementById("accountFound").textContent = table.rows.length;
-
-    // Mettre à jour le compteur "Account with Transaction"
-    let withTransactionCount = 0;
-    for (let i = 0; i < table.rows.length; i++) {
-      let transactionAmount = parseFloat(table.rows[i].cells[2].textContent.replace("$", ""));
-      if (transactionAmount > 0) {
-        withTransactionCount++;
-      }
+  function updateCounters(account, transactionFound) {
+    if (account)
+    {
+      accountFound++;
     }
-    document.getElementById("withTransaction").textContent = withTransactionCount;
 
-    // Mettre à jour le compteur "Account without Transaction"
-    document.getElementById("accountWithoutTransaction").textContent = table.rows.length - withTransactionCount;
+    if (transactionFound)
+    {
+      accountWithTransaction++;
+    }
+    else
+    {
+      accountWithoutTransaction++;
+    }
+
+    document.getElementById('accountFound').textContent = accountFound;
+    document.getElementById('accountWithTransaction').textContent = accountWithTransaction
   }
 
   document.getElementById("startButton").addEventListener("click", function() {
