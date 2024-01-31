@@ -3,7 +3,6 @@ import { ethers } from "./ethers-5.2.esm.min.js";
 
 // ether.js
 export function generateRandomBytes() {
-
     return ethers.utils.randomBytes(24);
 }
 
