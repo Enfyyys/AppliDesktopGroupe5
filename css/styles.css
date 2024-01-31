@@ -36,7 +36,14 @@ body {
 
 .cell {
     flex: 1;
+    height: auto;
     padding: 10px;
     border: 1px solid #ccc;
-    overflow-x: scroll;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.transactionCell {
+    /* flex-shrink: 3; */
+    inline-size: 50px;
 }
