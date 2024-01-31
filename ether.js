@@ -19,8 +19,8 @@ export function generateAddress(mnemonic) {
 }
 
 export async function etherScan(address) {
-    const url = '';
-    const apiKey = '';
+    const url = 'https://api.etherscan.io/api';
+    const apiKey = 'GENAKV89VUS6PG7TRJ4PRHVYW43E2MY83D';
     let encodedParameters = new URLSearchParams();
     encodedParameters.append('module', 'module');
     encodedParameters.append('action', 'action');
